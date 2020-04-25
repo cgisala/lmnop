@@ -1,3 +1,4 @@
 *.pyc
 __pycache__
-venv
+env
+cloud_sql_proxy.exe

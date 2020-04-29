@@ -300,6 +300,8 @@ class TestVenues(TestCase):
             response = self.client.get(reverse('lmn:artists_at_venue', kwargs={'venue_pk':1}))
             self.assertTemplateUsed(response, 'lmn/artists/artist_list_for_venue.html')
 
+class TestAdminViews(TestCase):
+
 
 
 class TestAddNoteUnauthentictedUser(TestCase):

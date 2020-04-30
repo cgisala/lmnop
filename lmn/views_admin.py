@@ -10,13 +10,14 @@ def get_shows():
     key = os.environ.get('TICK_MASTER')
     query = {'apikey': key}
     url = 'https://app.ticketmaster.com/discovery/v2/events.json?'
-    response = requests.get(url, params=query).json()
-    if response.status_code == 200:
+    request = requests.get(url, params=query)
+    response = request.json()
+    if request.status_code == 200:
         return response
-    if response.status_code == 404:
+    if request.status_code == 404:
         return None
     
-    response.raise_for_status()
+    request.raise_for_status()
 
 def create_artist(response):
 
@@ -38,7 +39,7 @@ def create_venue(response):
             venue = Venue(name=venue_name, city=city, state=state).save()
             return venue
         except IntegrityError:
-            pass
+           pass
 
 def create_show(response, artist, venue):
 

@@ -23,7 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8c01$#j44g3znb)$q0()8)!%ts-jc)k12!a75-!63qb%bj=d4k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.getenv('GAE_INSTANCCE'):
+    DEBUG = False
+else:
+    DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -91,13 +94,12 @@ DATABASES = {
     # When you use Postgres, comment out or remove this DB config. 
 
 if not os.getenv('GAE_INSTANCE'):
-    DATABASES['default']['HOST'] = '127.0.0.1'
-
-#'default': {
-    #  'ENGINE': 'django.db.backends.sqlite3',
-    #  'NAME': 'lmnop.sqlite',
-#}
-
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3'
+            'NAME': 'lmnop.sqlite') 
+        }
+    }
 
 
 # Password validation

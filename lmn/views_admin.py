@@ -20,31 +20,34 @@ def get_shows():
 
 def create_artist(response):
 
-    try:
-        artist_name = response['_embedded']['events'][0]['name']
-        artist = Artist(name=artist_name).save()
-        return artist
-    except IntegrityError:
-        pass
+    if response is not None:
+        try:
+            artist_name = response['_embedded']['events'][0]['name']
+            artist = Artist(name=artist_name).save()
+            return artist
+        except IntegrityError:
+            pass
 
 def create_venue(response):
 
-    try:
-        venue_name = response['_embedded']['events'][0]['_embedded']['venues'][0]['name']
-        city = response['_embedded']['events'][0]['_embedded']['venues'][0]['city']['name']
-        state = response['_embedded']['events'][0]['_embedded']['venues'][0]['state']['name']
-        venue = Venue(name=venue_name, city=city, state=state).save()
-        return venue
-    except IntegrityError:
-        pass
+    if response is not None:    
+        try:
+            venue_name = response['_embedded']['events'][0]['_embedded']['venues'][0]['name']
+            city = response['_embedded']['events'][0]['_embedded']['venues'][0]['city']['name']
+            state = response['_embedded']['events'][0]['_embedded']['venues'][0]['state']['name']
+            venue = Venue(name=venue_name, city=city, state=state).save()
+            return venue
+        except IntegrityError:
+            pass
 
 def create_show(response, artist, venue):
 
-    try:
-        show_date = response['_embedded']['events'][0]['dates']['start']['dateTime']
-        show = Show(show_date=show_date, artist=artist, venue=venue).save()
-    except IntegrityError:
-        pass
+    if response is not None:
+        try:
+            show_date = response['_embedded']['events'][0]['dates']['start']['dateTime']
+            show = Show(show_date=show_date, artist=artist, venue=venue).save()
+        except IntegrityError:
+            pass
 
 def admin_main(request):
     response = get_shows()

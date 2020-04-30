@@ -77,26 +77,27 @@ WSGI_APPLICATION = 'lmnop_project.wsgi.application'
 
 DATABASES = {
 
-# Uncomment this when you are ready to use Postgres.
+# # Uncomment this when you are ready to use Postgres.
 
-     'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'lmnop',
-         'USER' : 'user',
-         'PASSWORD' : os.environ['LMNOP_DB_PW'],
-         'HOST' : '/cloudsql/lmnop-275222:us-central1:lmnop-db',
-         'PORT' : '5432',
-    },
+#      'default': {
+#          'ENGINE': 'django.db.backends.postgresql',
+#          'NAME': 'lmnop',
+#          'USER' : 'user',
+#          'PASSWORD' : os.environ['LMNOP_DB_PW'],
+#          'HOST' : '/cloudsql/lmnop-275222:us-central1:lmnop-db',
+#          'PORT' : '5432',
+#     },
+# }
+#     # When you use Postgres, comment out or remove this DB config. 
+
+# if not os.getenv('GAE_INSTANCE'):
+#     DATABASES['default']['HOST'] = '127.0.0.1'
+
+    'default': {
+     'ENGINE': 'django.db.backends.sqlite3',
+     'NAME': 'lmnop.sqlite',
+    }
 }
-    # When you use Postgres, comment out or remove this DB config. 
-
-if not os.getenv('GAE_INSTANCE'):
-    DATABASES['default']['HOST'] = '127.0.0.1'
-
-#'default': {
-    #  'ENGINE': 'django.db.backends.sqlite3',
-    #  'NAME': 'lmnop.sqlite',
-#}
 
 
 
@@ -138,6 +139,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Where to send user after successful login if no other page is provided.
 # Should provide the user object.

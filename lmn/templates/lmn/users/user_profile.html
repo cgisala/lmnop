@@ -7,6 +7,26 @@
 Includes list of user's notes with title and preview of text.
 Text truncated to 200 characters. -->
 
+<div class="profile">
+  <img class="" src="{{ user.profile.image.url }}">Image here
+  <div class="media-body">
+    <h2 class="account-heading">{{ user.username }}</h2>
+    <p>{{ user.email }}</p>
+  </div>
+</div>
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <fieldset class="form-group">
+    <p>Profile Info</p>
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+  </fieldset>
+  <div class="form-group">
+    <button type="submit">Update</button>
+  </div>
+</form>
+
+
 <h2 id='username_notes'>{{ user.username }}'s notes</h2>
 
 {% for note in notes %}

@@ -1,0 +1,10 @@
+{% extends 'lmn/base.html' %}
+{% block content %}
+
+<h2>Edit note for {{ show.artist_name }} at {{ show.venue_name }} on {{ show.show_date }}</h2>
+
+<form method="POST" action="{% url 'lmn:new_note' show_pk=show.pk %}">{% csrf_token %}
+    {{ form.as_p }}
+    <P>
+    <input type='submit' value='Save Note'>
+  </form>

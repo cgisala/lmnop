@@ -18,6 +18,14 @@ Text truncated to 200 characters. -->
   <p class="note_posted_at">{{ note.posted_date}}</p>
 </div>
 
+<form action="{% url 'lmn:note_detail' note_pk=note.pk %}">
+  <input id="delete_note" type='submit' value='Delete note'>
+</form>
+
+<form action="{% url 'lmn:note_detail' note_pk=note.pk %}">
+  <input id="edit_note" type="submit" value='edit_note'>
+</form>
+
 {% empty %}
 
     <p id='no_records'>No notes.</p>

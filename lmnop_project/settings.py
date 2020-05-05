@@ -96,8 +96,8 @@ DATABASES = {
 if not os.getenv('GAE_INSTANCE'):
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3'
-            'NAME': 'lmnop.sqlite') 
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': '../lmnop.sqlite'
         }
     }
 

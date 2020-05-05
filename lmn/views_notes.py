@@ -6,6 +6,7 @@ from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrat
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 
 
@@ -28,6 +29,27 @@ def new_note(request, show_pk):
         form = NewNoteForm()
 
     return render(request, 'lmn/notes/new_note.html' , { 'form': form , 'show': show })
+
+@login_required
+def edit_note(request, note_pk):
+
+    note = get_object_or_404(Note, pk=note_pk)
+
+    if request.method == 'POST':
+
+        form = NewNoteForm(request.POST, instance=note)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Note updated')
+        else:
+            messages.error(request, form.errors)
+
+        return redirect('lmn:note_detail', note_pk=note_pk)
+
+    else:
+
+        form = NewNoteForm(instance = note)
+        return redirect('lmn:note_detail', {'note': note})
 
 
 def latest_notes(request):

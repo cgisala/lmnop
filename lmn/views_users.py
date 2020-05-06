@@ -11,8 +11,14 @@ from django.contrib import messages
 
 def user_profile(request, user_pk):
     user = User.objects.get(pk=user_pk)
+
+    editable = False
+
+    if user_pk == request.user.pk:
+        editable = True
+
     usernotes = Note.objects.filter(user=user.pk).order_by('-posted_date')
-    return render(request, 'lmn/users/user_profile.html', { 'user': user , 'notes': usernotes })
+    return render(request, 'lmn/users/user_profile.html', { 'user': user , 'notes': usernotes , 'editable': editable })
 
 
 @login_required
@@ -26,14 +32,14 @@ def my_user_profile(request):
             user_form.save()
             profile_form.save()
             messages.success(request, f'Your profile was successfully updated!')
-            return redirect('settings:profile')
+            return redirect('/user/profile/' + str(request.user.id))
         else:
             messages.error(request, f'Please correct the error below.')
 
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)
-    return render(request, 'lmn/users/user_profile.html', {
+    return render(request, 'lmn/users/edit_profile.html', {
         'user_form': user_form,
         'profile_form': profile_form
     })

@@ -91,12 +91,12 @@ DATABASES = {
     # When you use Postgres, comment out or remove this DB config. 
 
 if not os.getenv('GAE_INSTANCE'):
-    DATABASES['default']['HOST'] = '127.0.0.1'
-
-#'default': {
-    #  'ENGINE': 'django.db.backends.sqlite3',
-    #  'NAME': 'lmnop.sqlite',
-#}
+    DATABASES={
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'lmnop.sqlite',
+        }
+}
 
 
 

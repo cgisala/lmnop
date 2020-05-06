@@ -33,7 +33,7 @@ def my_user_profile(request):
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)
-    return render(request, 'users/user_profile.html', {
+    return render(request, 'lmn/users/user_profile.html', {
         'user_form': user_form,
         'profile_form': profile_form
     })

@@ -68,6 +68,12 @@ class Profile(models.Model):
     # Fields for more profile information here
     bio = models.TextField(max_length=500, blank=True)
     birth_date = models.DateField(null=True, blank=True)
+    fav_band = models.TextField(max_length=50, blank=True, null=True)
+    insta_username = models.TextField(max_length=30, blank=True, null=True)
+    youtube_username = models.TextField(max_length=30, blank=True, null=True)
+    twitch_username = models.TextField(max_length=30, blank=True, null=True)
+    snap_username = models.TextField(max_length=20, blank=True, null=True)
+    
 
     def __str__(self):
         return '{} Profile'.format(self.user)

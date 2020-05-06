@@ -14,6 +14,23 @@ Text truncated to 200 characters. -->
     <p>Contact: {{ user.email }}</p>
     <p>About me: {{ user.profile.bio }}</p>
     <p>Birthdate: {{ user.profile.birth_date }}</p>
+    
+    {% if user.profile.fav_band %}
+    <p>Favorite Band: {{ user.profile.fav_band }}</p>
+    {% endif %}
+    {% if user.profile.insta_username %}
+    <p>Instagram: <a href="https://www.instagram.com/{{user.profile.insta_username}}">{{ user.profile.insta_username }}</a></p>
+    {% endif %}
+    {% if user.profile.youtube_username %}
+    <p>Youtube: <a href="https://www.youtube.com/user/{{ user.profile.youtube_username }}">{{ user.profile.youtube_username }}</a></p>
+    {% endif %}
+    {% if user.profile.twitch_username %}
+    <p>Twitch: <a href="https://www.twitch.tv/{{ user.profile.twitch_username }}">{{ user.profile.twitch_username }}</a></p>
+    {% endif %}
+    {% if user.profile.snap_username %}
+    <p>Snapchat: {{ user.profile.snap_username }}</p>
+    {% endif %}
+
     {% if editable %}
     <a href="{% url 'lmn:my_user_profile' %}">Modify Profile</a>
     {% endif %}

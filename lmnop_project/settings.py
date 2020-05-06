@@ -94,12 +94,12 @@ DATABASES = {
     # When you use Postgres, comment out or remove this DB config. 
 
 if not os.getenv('GAE_INSTANCE'):
-    DATABASES = {
+    DATABASES={
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3'
-            'NAME': 'lmnop.sqlite') 
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'lmnop.sqlite',
         }
-    }
+}
 
 
 # Password validation

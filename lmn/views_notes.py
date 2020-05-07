@@ -52,6 +52,13 @@ def edit_note(request, note_pk):
 
     return render(request, 'lmn/notes/edit_note.html', { 'form': form, 'note': note })
 
+@login_required
+def delete_note(request, note_pk):
+
+    note = get_object_or_404(Note, pk=note_pk)
+    note.delete()
+    return redirect('lmn:my_user_profile')
+
 
 def latest_notes(request):
     notes = Note.objects.all().order_by('-posted_date')

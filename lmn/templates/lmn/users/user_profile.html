@@ -1,4 +1,5 @@
 {% extends 'lmn/base.html' %}
+{% load static %}
 {% block content %}
 
 
@@ -18,9 +19,12 @@ Text truncated to 200 characters. -->
   <p class="note_posted_at">{{ note.posted_date}}</p>
 </div>
 
-<form action="{% url 'lmn:note_detail' note_pk=note.pk %}">
-  <input id="delete_note" type='submit' value='Delete note'>
+<form action="{% url 'lmn:delete_note' note.pk %}" method="POST">
+  {% csrf_token %}
+  <button type='submit' class="delete_note">Delete note</button>
 </form>
+
+<script src="{% static 'js/confirm_delete.js' %}"></script>
 
 <form action="{% url 'lmn:edit_note' note_pk=note.pk %}">
   <input id="edit_note" type="submit" value='Edit note'>

@@ -340,13 +340,13 @@ class TestAdminViews(TestCase):
         request = requests.get(url, params=query)
         self.assertEqual(request.status_code, 200)
 
-    def test_response_400(self):
+    def test_response_404(self):
         key = 'key'
         c_name = 'cisum'
         query = {'classificationName': c_name, 'apikey': key}
         url = 'https://app.ticketmaster.com/discovery/v2/events.json?'
         request = requests.get(url, params=query)
-        self.assertEqual(request.status_code, 400)
+        self.assertEqual(request.status_code, 404)
 
 class TestAddNoteUnauthentictedUser(TestCase):
 

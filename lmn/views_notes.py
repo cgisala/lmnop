@@ -44,12 +44,13 @@ def edit_note(request, note_pk):
         else:
             messages.error(request, form.errors)
 
-        return redirect('lmn:note_detail', note_pk=note_pk)
+        return redirect('lmn:note_detail', note_pk=note.pk)
 
     else:
 
         form = NewNoteForm(instance = note)
-        return redirect('lmn:note_detail', {'note': note})
+
+    return render(request, 'lmn/notes/edit_note.html', { 'form': form, 'note': note })
 
 
 def latest_notes(request):

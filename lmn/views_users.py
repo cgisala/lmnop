@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
-
+''' View for generic profile page '''
 def user_profile(request, user_pk):
     user = User.objects.get(pk=user_pk)
 
@@ -18,9 +18,9 @@ def user_profile(request, user_pk):
         editable = True
 
     usernotes = Note.objects.filter(user=user.pk).order_by('-posted_date')
-    return render(request, 'lmn/users/user_profile.html', { 'user': user , 'notes': usernotes , 'editable': editable })
+    return render(request, 'lmn/users/user_profile.html', { 'user_profile': user , 'notes': usernotes , 'editable': editable })
 
-
+''' View for Modifying logged in user's profile info '''
 @login_required
 def my_user_profile(request):
     if request.method == 'POST':

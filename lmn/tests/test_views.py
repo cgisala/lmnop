@@ -406,6 +406,38 @@ class TestUserProfile(TestCase):
         response = self.client.get(reverse('lmn:user_profile', kwargs={'user_pk':3}))
         self.assertFalse(response.context['notes'])
 
+    def test_username_shown_on_own_page(self):
+        response = self.client.get(reverse('lmn:user_profile', kwargs={'user_pk':1}))
+        self.assertContains(response, 'alice\'s notes')
+
+        response = self.client.get(reverse('lmn:user_profile', kwargs={'user_pk':2}))
+        self.assertContains(response, 'bob\'s notes')
+
+    def test_logged_in_username_shown_on_different_page(self):
+        # Log in as user #3
+        logged_in_user = User.objects.get(pk=3)
+        self.client.force_login(logged_in_user)
+        
+        # View profile of user #1
+        response = self.client.get(reverse('lmn:user_profile', kwargs={'user_pk':1}))
+        self.assertContains(response, 'alice\'s notes')
+        self.assertContains(response, 'You are logged in, <a href="/user/profile/3/">me</a>.')
+
+    def test_modify_own_profile_option_present(self):
+        logged_in_user = User.objects.get(pk=3)
+        self.client.force_login(logged_in_user)
+
+        response = self.client.get(reverse('lmn:user_profile', kwargs={'user_pk':3}))
+        self.assertContains(response, '<a href="/user/profile/edit">Modify Profile</a>')
+
+    def test_view_different_profile_no_modify_option(self):
+        logged_in_user = User.objects.get(pk=3)
+        self.client.force_login(logged_in_user)
+        
+        response = self.client.get(reverse('lmn:user_profile', kwargs={'user_pk':2}))
+        self.assertNotContains(response, '<a href="/user/profile/edit">Modify Profile</a>')
+
+
 
 class TestNotes(TestCase):
     fixtures = [ 'testing_users', 'testing_artists', 'testing_venues', 'testing_shows', 'testing_notes' ]  # Have to add artists and venues because of foreign key constrains in show

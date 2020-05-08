@@ -8,27 +8,27 @@ Includes list of user's notes with title and preview of text.
 Text truncated to 200 characters. -->
 
 <div class="profile">
-  <img src="{{ user.profile.profile_img.url }}">
+  <img src="{{ user_profile.profile.profile_img.url }}">
   <div class="media-body">
-    <h2 class="account-heading">{{ user.username }}</h2>
-    <p>Contact: {{ user.email }}</p>
-    <p>About me: {{ user.profile.bio }}</p>
-    <p>Birthdate: {{ user.profile.birth_date }}</p>
+    <h2 class="account-heading">{{ user_profile.username }}</h2>
+    <p>Contact: {{ user_profile.email }}</p>
+    <p>About me: {{ user_profile.profile.bio }}</p>
+    <p>Birthdate: {{ user_profile.profile.birth_date }}</p>
     
-    {% if user.profile.fav_band %}
-    <p>Favorite Band: {{ user.profile.fav_band }}</p>
+    {% if user_profile.profile.fav_band %}
+    <p>Favorite Band: {{ user_profile.profile.fav_band }}</p>
     {% endif %}
-    {% if user.profile.insta_username %}
-    <p>Instagram: <a href="https://www.instagram.com/{{user.profile.insta_username}}">{{ user.profile.insta_username }}</a></p>
+    {% if user_profile.profile.insta_username %}
+    <p>Instagram: <a href="https://www.instagram.com/{{user_profile.profile.insta_username}}">{{ user_profile.profile.insta_username }}</a></p>
     {% endif %}
-    {% if user.profile.youtube_username %}
-    <p>Youtube: <a href="https://www.youtube.com/user/{{ user.profile.youtube_username }}">{{ user.profile.youtube_username }}</a></p>
+    {% if user_profile.profile.youtube_username %}
+    <p>Youtube: <a href="https://www.youtube.com/user/{{ user_profile.profile.youtube_username }}">{{ user_profile.profile.youtube_username }}</a></p>
     {% endif %}
-    {% if user.profile.twitch_username %}
-    <p>Twitch: <a href="https://www.twitch.tv/{{ user.profile.twitch_username }}">{{ user.profile.twitch_username }}</a></p>
+    {% if user_profile.profile.twitch_username %}
+    <p>Twitch: <a href="https://www.twitch.tv/{{ user_profile.profile.twitch_username }}">{{ user_profile.profile.twitch_username }}</a></p>
     {% endif %}
-    {% if user.profile.snap_username %}
-    <p>Snapchat: {{ user.profile.snap_username }}</p>
+    {% if user_profile.profile.snap_username %}
+    <p>Snapchat: {{ user_profile.profile.snap_username }}</p>
     {% endif %}
 
     {% if editable %}
@@ -37,7 +37,7 @@ Text truncated to 200 characters. -->
   </div>
 </div>
 
-<h2 id='username_notes'>{{ user.username }}'s notes</h2>
+<h2 id='username_notes'>{{ user_profile.username }}'s notes</h2>
 
 {% for note in notes %}
 

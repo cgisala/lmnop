@@ -40,7 +40,7 @@ class Show(models.Model):
     show_date = models.DateTimeField(blank=False)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return 'Show with artist {} at {} on {}'.format(self.artist, self.venue, self.show_date)
 
@@ -78,11 +78,12 @@ class Profile(models.Model):
     def __str__(self):
         return '{} Profile'.format(self.user)
 
-    def save(self):
-        super().save()
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
         img = Image.open(self.profile_img.path)
 
+        # Modify profile picture size to thumbnail size
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
             img.thumbnail(output_size)

@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from django.contrib.auth.models import User
-from lmn.forms import NewNoteForm, UserRegistrationForm
+from lmn.forms import NewNoteForm, UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 import string
 
 # Test that forms are validating correctly, and don't accept invalid data
@@ -151,3 +151,4 @@ class LoginFormTests(TestCase):
 
     def test_login_valid_username_password_ok(self):
         bob = User()
+        

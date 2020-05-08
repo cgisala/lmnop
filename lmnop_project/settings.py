@@ -23,7 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8c01$#j44g3znb)$q0()8)!%ts-jc)k12!a75-!63qb%bj=d4k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.getenv('GAE_INSTANCE'):
+    DEBUG = False
+else:
+    DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -93,10 +96,10 @@ DATABASES = {
 if not os.getenv('GAE_INSTANCE'):
     DATABASES={
         'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'lmnop.sqlite',
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'lmnop.sqlite',
+        }
     }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

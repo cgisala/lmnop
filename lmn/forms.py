@@ -5,10 +5,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ValidationError
 
+import requests
+import os
+
 
 class VenueSearchForm(forms.Form):
     search_name = forms.CharField(label='Venue Name', max_length=200)
-
 
 class ArtistSearchForm(forms.Form):
     search_name = forms.CharField(label='Artist Name', max_length=200)

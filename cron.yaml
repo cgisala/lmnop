@@ -1,0 +1,4 @@
+cron:
+ - description: "get show data"
+   url: /data
+   schedule: every 5 minutes

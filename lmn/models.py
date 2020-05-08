@@ -18,7 +18,7 @@ User._meta.get_field('first_name')._blank = False
 
 ''' A music artist '''
 class Artist(models.Model):
-    name = models.CharField(max_length=200, blank=False);
+    name = models.CharField(max_length=200, blank=False, unique=True) # Change artist to unique
 
     def __str__(self):
         return "Artist: " + self.name
@@ -28,7 +28,7 @@ class Artist(models.Model):
 class Venue(models.Model):
     name = models.CharField(max_length=200, blank=False, unique=True)
     city = models.CharField(max_length=200, blank=False)
-    state = models.CharField(max_length=2, blank=False)  # What about international?
+    state = models.CharField(max_length=20, blank=False)  # What about international?
 
     def __str__(self):
         return 'Venue name: {} in {}, {}'.format(self.name, self.city, self.state)

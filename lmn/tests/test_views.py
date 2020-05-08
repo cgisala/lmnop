@@ -4,8 +4,13 @@ from django.urls import reverse
 from django.contrib import auth
 
 from lmn.models import Venue, Artist, Note, Show
+from lmn import views_admin
 from django.contrib.auth.models import User
 
+from mock import patch
+
+import os
+import requests
 import re, datetime
 from datetime import timezone
 
@@ -300,7 +305,48 @@ class TestVenues(TestCase):
             response = self.client.get(reverse('lmn:artists_at_venue', kwargs={'venue_pk':1}))
             self.assertTemplateUsed(response, 'lmn/artists/artist_list_for_venue.html')
 
+class TestAdminViews(TestCase):
 
+    # Test API response
+    @patch('lmn.views_admin.get_data')
+    def test_get_shows(self, mock_response):
+
+        mock_artist = 'Fiona Apple'
+        mock_venue = 'First Avenue'
+        mock_city = 'Minneapolis'
+        mock_state = 'Minnesota'
+        mock_show_date = '2020-10-25T03:00:00Z'
+        api_response = {'_embedded':{'events': [{0: {'name': mock_artist, 
+                        '_embedded':{'venues': [{0: {'name': mock_venue, 'city': {'name': mock_city}, 'state': {'name': mock_state}}}]}},
+                        'dates': {'start':{'dateTime': mock_show_date}}}]}}
+        mock_response.side_effect = [api_response]
+
+        artist = views_admin.create_artist()
+        venue = views_admin.create_venue()
+        show = views_admin.create_show(artist, venue)
+        
+        self.assertEqual(mock_artist, artist.name)
+        self.assertEqual(mock_venue, venue.name)
+        self.assertEqual(mock_city, venue.city)
+        self.assertEqual(mock_state, venue.state)
+        self.assertEqual(mock_show_date, show.show_date)
+
+    def test_response_200(self):
+
+        key = os.environ.get('TICK_MASTER')
+        c_name = 'music'
+        query = {'classificationName': c_name, 'apikey': key}
+        url = 'https://app.ticketmaster.com/discovery/v2/events.json?'
+        request = requests.get(url, params=query)
+        self.assertEqual(request.status_code, 200)
+
+    def test_response_404(self):
+        key = 'key'
+        c_name = 'cisum'
+        query = {'classificationName': c_name, 'apikey': key}
+        url = 'https://app.ticketmaster.com/discovery/v2/events.json?'
+        request = requests.get(url, params=query)
+        self.assertEqual(request.status_code, 404)
 
 class TestAddNoteUnauthentictedUser(TestCase):
 

@@ -11,7 +11,7 @@ def get_shows():
     # Parameters for API request
     key = os.environ.get('TICK_MASTER')
     c_name = 'music'    # Filter events to music
-    num_shows = 200     # Number of upcoming shows
+    num_shows = 20    # Number of upcoming shows
     countryCode = 'US'
     
     query = {'classificationName': c_name, 'countryCode': countryCode, 'size':num_shows, 'apikey': key}

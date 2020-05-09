@@ -1,5 +1,5 @@
 from django import forms
-from .models import Note
+from .models import Note, Profile
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -80,3 +80,28 @@ class UserRegistrationForm(UserCreationForm):
             user.save()
 
         return user
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+    
+    class Meta:
+        model = User
+        fields = ('email', )
+
+class ProfileUpdateForm(forms.ModelForm):
+    fav_band = forms.CharField(label='Favorite Band', required=False)
+    insta_username = forms.CharField(label='Instagram', required=False)
+    youtube_username = forms.CharField(label='Youtube', required=False)
+    twitch_username = forms.CharField(label='Twitch', required=False)
+    snap_username = forms.CharField(label='Snapchat', required=False)
+
+    class Meta:
+        model = Profile
+        fields = ('profile_img', 
+                    'bio', 
+                    'birth_date', 
+                    'fav_band', 
+                    'insta_username', 
+                    'youtube_username', 
+                    'twitch_username', 
+                    'snap_username')

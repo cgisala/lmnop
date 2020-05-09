@@ -7,7 +7,37 @@
 Includes list of user's notes with title and preview of text.
 Text truncated to 200 characters. -->
 
-<h2 id='username_notes'>{{ user.username }}'s notes</h2>
+<div class="profile">
+  <img src="{{ user_profile.profile.profile_img.url }}">
+  <div class="media-body">
+    <h2 class="account-heading">{{ user_profile.username }}</h2>
+    <p>Contact: {{ user_profile.email }}</p>
+    <p>About me: {{ user_profile.profile.bio }}</p>
+    <p>Birthdate: {{ user_profile.profile.birth_date }}</p>
+    
+    {% if user_profile.profile.fav_band %}
+    <p>Favorite Band: {{ user_profile.profile.fav_band }}</p>
+    {% endif %}
+    {% if user_profile.profile.insta_username %}
+    <p>Instagram: <a href="https://www.instagram.com/{{user_profile.profile.insta_username}}">{{ user_profile.profile.insta_username }}</a></p>
+    {% endif %}
+    {% if user_profile.profile.youtube_username %}
+    <p>Youtube: <a href="https://www.youtube.com/user/{{ user_profile.profile.youtube_username }}">{{ user_profile.profile.youtube_username }}</a></p>
+    {% endif %}
+    {% if user_profile.profile.twitch_username %}
+    <p>Twitch: <a href="https://www.twitch.tv/{{ user_profile.profile.twitch_username }}">{{ user_profile.profile.twitch_username }}</a></p>
+    {% endif %}
+    {% if user_profile.profile.snap_username %}
+    <p>Snapchat: {{ user_profile.profile.snap_username }}</p>
+    {% endif %}
+
+    {% if editable %}
+    <a href="{% url 'lmn:my_user_profile' %}">Modify Profile</a>
+    {% endif %}
+  </div>
+</div>
+
+<h2 id='username_notes'>{{ user_profile.username }}'s notes</h2>
 
 {% for note in notes %}
 

@@ -2,4 +2,7 @@ from django.apps import AppConfig
 
 
 class LmnConfig(AppConfig):
-    name = 'LMN'
+    name = 'lmn'
+
+    def ready(self):
+        import lmn.signals

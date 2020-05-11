@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views, views_artists, views_venues, views_notes, views_users
+from . import views, views_artists, views_venues, views_notes, views_users, views_admin
 
 from django.contrib.auth import views as auth_views
 
@@ -37,4 +37,6 @@ urlpatterns = [
     path('accounts/logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
     path('register/', views_users.register, name='register'),
 
+    # Database/Admin related
+    path('data', views_admin.admin_main, name='api_data')
 ]

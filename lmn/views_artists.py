@@ -9,6 +9,9 @@ from django.contrib.auth import authenticate, login, logout
 
 from django.utils import timezone
 
+import os
+import requests
+
 
 def venues_for_artist(request, artist_pk):   # pk = artist_pk
 
@@ -23,10 +26,11 @@ def venues_for_artist(request, artist_pk):   # pk = artist_pk
 def artist_list(request):
     form = ArtistSearchForm()
     search_name = request.GET.get('search_name')
+    
     if search_name:
-        artists = Artist.objects.filter(name__icontains=search_name).order_by('name')
+       artists = Artist.objects.filter(name__icontains=search_name).order_by('name')
     else:
-        artists = Artist.objects.all().order_by('name')
+       artists = Artist.objects.all().order_by('name')
 
     return render(request, 'lmn/artists/artist_list.html', { 'artists': artists, 'form': form, 'search_term': search_name })
 

@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8c01$#j44g3znb)$q0()8)!%ts-jc)k12!a75-!63qb%bj=d4k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.getenv('GAE_INSTANCCE'):
+if os.getenv('GAE_INSTANCE'):
     DEBUG = False
 else:
     DEBUG = True
@@ -94,7 +94,7 @@ DATABASES = {
     # When you use Postgres, comment out or remove this DB config. 
 
 if not os.getenv('GAE_INSTANCE'):
-    DATABASES = {
+    DATABASES={
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': '../lmnop.sqlite'

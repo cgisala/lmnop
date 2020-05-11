@@ -34,7 +34,7 @@ def new_note(request, show_pk):
 def edit_note(request, note_pk):
 
     note = get_object_or_404(Note, pk=note_pk)
-
+    
     if request.method == 'POST':
 
         form = NewNoteForm(request.POST, instance=note)

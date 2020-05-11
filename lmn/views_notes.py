@@ -6,6 +6,7 @@ from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrat
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 
 
@@ -29,6 +30,35 @@ def new_note(request, show_pk):
 
     return render(request, 'lmn/notes/new_note.html' , { 'form': form , 'show': show })
 
+@login_required
+def edit_note(request, note_pk):
+
+    note = get_object_or_404(Note, pk=note_pk)
+    
+    if request.method == 'POST':
+
+        form = NewNoteForm(request.POST, instance=note)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Note updated')
+        else:
+            messages.error(request, form.errors)
+
+        return redirect('lmn:note_detail', note_pk=note.pk)
+
+    else:
+
+        form = NewNoteForm(instance = note)
+
+    return render(request, 'lmn/notes/edit_note.html', { 'form': form, 'note': note })
+
+@login_required
+def delete_note(request, note_pk):
+
+    note = get_object_or_404(Note, pk=note_pk)
+    note.delete()
+    return redirect('lmn:my_user_profile')
+
 
 def latest_notes(request):
     notes = Note.objects.all().order_by('-posted_date')
@@ -43,6 +73,13 @@ def notes_for_show(request, show_pk):   # pk = show pk
     return render(request, 'lmn/notes/note_list.html', { 'show': show, 'notes': notes } )
 
 
-def note_detail(request, note_pk):
+def note_detail(request, note_pk, *args, **kwargs):
     note = get_object_or_404(Note, pk=note_pk)
-    return render(request, 'lmn/notes/note_detail.html' , { 'note': note })
+    user = kwargs.get('pk')
+
+    editable = False
+
+    if note.user.pk == request.user.pk:
+        editable = True
+
+    return render(request, 'lmn/notes/note_detail.html' , { 'note': note, 'editable': editable })

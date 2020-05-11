@@ -525,6 +525,49 @@ class TestNotes(TestCase):
         self.assertTemplateUsed(response, 'lmn/notes/new_note.html')
 
 
+class TestDeleteNote(TestCase):
+
+    fixtures = ['testing_notes', 'testing_users']
+
+    def setUp(self):
+        user = User.objects.first()
+        self.client.force_login(user)
+
+    def test_delete_own_note(self):
+        response = self.client.post(reverse('delete_note', args=(1,)), follow=True)
+        note_1 = Note.objects.filter(pk=1).first()
+        self.assertIsNone(note_1)
+
+    def test_delete_someone_else_note(self):
+        response = self.client.post(reverse('delete_note', args=(4,)), follow=True)
+        self.assertEqual(403, response.status_code)
+        note_5 = Note.objects.get(pk=5)
+        self.assertIsNotNone(note_5)
+
+class TestEditNotes(TestCase):
+
+    fixtures = ['testing_notes', 'testing_users']
+
+    def setUp(self):
+        user = User.objects.get(pk=1)
+        self.client.force_login(user)
+
+    def test_edit_someone_else_notes(self):
+        response = self.client.post(reverse('note_detail', kwargs={'note_pk': 5}), {'title': 'note'}, {'text': 'NOTE'}, follow=True)
+        self.assertEqual(403, response.status_code)
+
+    def test_edit_notes(self):
+
+        response = self.client.post(reverse('note_detail', kwargs={'note_pk': 1}), {'title': 'note'}, {'text': 'notey'}, follow=True)
+
+        updated_note = Note.objects.get(pk=1)
+
+        self.assertEqual('note', updated_note.title)
+        self.assertEqual('notey', updated_note.text)
+        self.assertEqual(response.context['note'], updated_note)
+        self.assertTemplateUsed(response, 'templates/lmn/notes/note_detail.html')
+        self.assertNotContains(response, 'yay!')
+        self.assertContains(response, 'notey')
 
 class TestUserAuthentication(TestCase):
 

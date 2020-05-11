@@ -73,6 +73,13 @@ def notes_for_show(request, show_pk):   # pk = show pk
     return render(request, 'lmn/notes/note_list.html', { 'show': show, 'notes': notes } )
 
 
-def note_detail(request, note_pk):
+def note_detail(request, note_pk, *args, **kwargs):
     note = get_object_or_404(Note, pk=note_pk)
-    return render(request, 'lmn/notes/note_detail.html' , { 'note': note })
+    user = kwargs.get('pk')
+
+    editable = False
+
+    if note.user.pk == request.user.pk:
+        editable = True
+
+    return render(request, 'lmn/notes/note_detail.html' , { 'note': note, 'editable': editable })

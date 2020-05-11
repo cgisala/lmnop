@@ -19,21 +19,6 @@
   <p class='note_text'>{{ note.text|truncatechars:100 }}</p>
   <hr>
 
-{% if editable %}
-
-<form action="{% url 'lmn:delete_note' note.pk %}" method="POST">
-  {% csrf_token %}
-  <button type='submit' class="delete_note">Delete note</button>
-</form>
-
-<script src="{% static 'js/confirm_delete.js' %}"></script>
-
-<form action="{% url 'lmn:edit_note' note_pk=note.pk %}">
-  <input id="edit_note" type="submit" value='Edit note'>
-</form>
-
-{% endif %}
-
 {% empty %}
 
 <p>No notes.</p>

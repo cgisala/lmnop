@@ -2,7 +2,8 @@ from django.urls import path
 from . import views, views_artists, views_venues, views_notes, views_users, views_admin
 
 from django.contrib.auth import views as auth_views
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'lmn'
 
@@ -39,4 +40,4 @@ urlpatterns = [
 
     # Database/Admin related
     path('cU7j399Hhq', views_admin.admin_main, name='api_data')
-]
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

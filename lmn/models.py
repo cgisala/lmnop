@@ -63,7 +63,7 @@ class Note(models.Model):
 ''' A users profile. '''
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_img = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    profile_img = models.ImageField(default='default.jpg', upload_to='media')
 
     # Fields for more profile information here
     bio = models.TextField(max_length=500, blank=True)
@@ -81,12 +81,12 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        img = Image.open(self.profile_img.path)
+        img = Image.open(self.profile_img)
 
         # Modify profile picture size to thumbnail size
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
             img.thumbnail(output_size)
-            img.save(self.profile_img.path)
+            img.save(self.profile_img)
 
 

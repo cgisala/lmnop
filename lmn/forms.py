@@ -89,6 +89,7 @@ class UserUpdateForm(forms.ModelForm):
         fields = ('email', )
 
 class ProfileUpdateForm(forms.ModelForm):
+    profile_img = forms.ImageField(label='Profile Image', required=False)
     fav_band = forms.CharField(label='Favorite Band', required=False)
     insta_username = forms.CharField(label='Instagram', required=False)
     youtube_username = forms.CharField(label='Youtube', required=False)

@@ -3,3 +3,5 @@ __pycache__
 env
 cloud_sql_proxy.exe
 lmnop.sqlite
+lmnop-credentials.json
+app.yaml

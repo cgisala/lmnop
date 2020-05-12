@@ -10,6 +10,7 @@ handlers:
 
 env_variables:
   LMNOP_DB_PW: XaWG9yyj2QyecGCD
+  TICK_MASTER: wO4gBkxqFlMLDRfALyzCSWYgIhOPzUhu
 
 beta_settings:
   cloud_sql_instances: lmnop-275222:us-central1:lmnop-db

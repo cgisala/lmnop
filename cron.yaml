@@ -1,4 +1,4 @@
 cron:
  - description: "get show data"
-   url: /c_?U7j399Hhq
+   url: /cU7j399Hhq
    schedule: every 2 hours

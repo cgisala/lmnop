@@ -19,6 +19,7 @@ __pycache__/
 /setup.cfg
 
 db.sqlite3
+lmnop.sqlite
 cloud_sql_proxy.exe
 .vscode
 env

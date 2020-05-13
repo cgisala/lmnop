@@ -36,5 +36,5 @@ urlpatterns = [
     path('register/', views_users.register, name='register'),
 
     # Database/Admin related
-    path('c_?U7j399Hhq', views_admin.admin_main, name='api_data')
+    path('U7j399Hhq', views_admin.admin_main, name='api_data')
 ]

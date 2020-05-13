@@ -82,14 +82,14 @@ DATABASES = {
 
 # Uncomment this when you are ready to use Postgres.
 
-     'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'lmnop',
-         'USER' : 'user',
-         'PASSWORD' : os.environ['LMNOP_DB_PW'],
-         'HOST' : '/cloudsql/lmnop-275222:us-central1:lmnop-db',
-         'PORT' : '5432',
-    },
+    #  'default': {
+    #      'ENGINE': 'django.db.backends.postgresql',
+    #      'NAME': 'lmnop',
+    #      'USER' : 'user',
+    #      'PASSWORD' : os.environ['LMNOP_DB_PW'],
+    #      'HOST' : '/cloudsql/lmnop-275222:us-central1:lmnop-db',
+    #      'PORT' : '5432',
+    # },
 }
     # When you use Postgres, comment out or remove this DB config. 
 

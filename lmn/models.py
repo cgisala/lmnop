@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 from PIL import Image
 import datetime
 
@@ -43,7 +44,6 @@ class Show(models.Model):
     
     def __str__(self):
         return 'Show with artist {} at {} on {}'.format(self.artist, self.venue, self.show_date)
-
 
 ''' One user's opinion of one show. '''
 class Note(models.Model):
@@ -90,3 +90,5 @@ class Profile(models.Model):
             img.save(self.profile_img.path)
 
 
+
+  

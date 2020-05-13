@@ -9,7 +9,8 @@ import os
 def get_shows():
 
     # Parameters for API request
-    key = os.environ.get('TICK_MASTER')
+    # key = os.environ.get('TICK_MASTER')
+    key = 'wO4gBkxqFIMLDRfALyzCSWYglhOPzUhu'
     c_name = 'music'    # Filter events to music
     num_shows = 20    # Number of upcoming shows
     countryCode = 'US'

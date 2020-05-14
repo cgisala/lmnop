@@ -5,6 +5,7 @@
 
 <form method="POST" action="{% url 'lmn:new_note' show_pk=show.pk %}">{% csrf_token %}
   {{ form.as_p }}
+  {{ rating.as_p }}
   <P>
   <input type='submit' value='Add Note'>
 </form>

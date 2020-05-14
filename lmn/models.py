@@ -45,6 +45,10 @@ class Show(models.Model):
     def __str__(self):
         return 'Show with artist {} at {} on {}'.format(self.artist, self.venue, self.show_date)
 
+    def no_of_ratings(self):
+        ratings = Rating.objects.filter(show=self)
+        return len(ratings)
+
 ''' One user's opinion of one show. '''
 class Note(models.Model):
     show = models.ForeignKey(Show, blank=False, on_delete=models.CASCADE)
@@ -89,6 +93,19 @@ class Profile(models.Model):
             img.thumbnail(output_size)
             img.save(self.profile_img.path)
 
+''' Ratings for shows '''
+class Rating(models.Model):
+    show = models.ForeignKey(Show, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    stars = models.IntegerField(validators=[MinValueValidator(1),
+    MaxValueValidator(5)])
 
+    ''' Allows only one show rating for one specific user '''    
+    class Meta:
+        unique_together = (('user', 'show'),)
+        index_together = (('user', 'show'),)
+
+    def __str__(self):
+        return '{} Rating'.format(self.stars)
 
   

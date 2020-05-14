@@ -1,5 +1,5 @@
 from django import forms
-from .models import Note, Profile
+from .models import Note, Profile, Rating
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -20,6 +20,12 @@ class NewNoteForm(forms.ModelForm):
     class Meta:
         model = Note
         fields = ('title', 'text')
+
+class NewRatingForm(forms.ModelForm):
+    stars = forms.IntegerField(max_value = 5, min_value = 1)
+    class Meta:
+        model = Rating
+        fields = ('stars',)
 
 
 class UserRegistrationForm(UserCreationForm):

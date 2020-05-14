@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Venue, Artist, Note, Show
-from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrationForm
+from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrationForm, NewRatingForm
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -15,19 +15,23 @@ def new_note(request, show_pk):
     show = get_object_or_404(Show, pk=show_pk)
 
     if request.method == 'POST' :
-
         form = NewNoteForm(request.POST)
+        ratingForm = NewRatingForm(request.POST)
         if form.is_valid():
             note = form.save(commit=False)
             note.user = request.user
             note.show = show
             note.save()
+            rating = ratingForm.save(commit=False)
+            rating.show = show
+            rating.user = request.user
+            rating.save()
             return redirect('lmn:note_detail', note_pk=note.pk)
 
     else :
         form = NewNoteForm()
-
-    return render(request, 'lmn/notes/new_note.html' , { 'form': form , 'show': show })
+        ratingForm = NewRatingForm()
+    return render(request, 'lmn/notes/new_note.html' , { 'form': form , 'show': show , 'rating': ratingForm})
 
 
 def latest_notes(request):

@@ -7,7 +7,7 @@ from lmn.models import Venue, Artist, Note, Show
 from lmn import views_admin
 from django.contrib.auth.models import User
 
-from mock import patch
+from unittest.mock import patch
 
 import os
 import requests
@@ -594,3 +594,19 @@ class TestUserAuthentication(TestCase):
 
         self.assertRedirects(response, reverse('lmn:homepage'))   # FIXME Fix code to redirect to last page user was on before registration.
         self.assertContains(response, 'sam12345')  # Homepage has user's name on it
+
+
+class TestUserSeesGoodbyeMessageOnLogout(TestCase):
+
+    fixtures = ['testing_users']
+
+    def test_user_sees_goodbye_message(self):
+        user = User.objects.get(pk=1)
+        self.client.force_login(user)
+
+        # click logout link
+        response = self.client.get(reverse('lmn:logout'), follow=True)
+
+        # Assert on goodbye page 
+        self.assertContains(response, 'Goodbye')
+        self.assertTemplateUsed(response, 'registration/logout.html')

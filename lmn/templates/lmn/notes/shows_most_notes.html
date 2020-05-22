@@ -1,0 +1,24 @@
+{% extends 'lmn/base.html' %}
+{% block content %}
+{% load static %}
+
+
+<h2>Most Popular Shows</h2>
+
+<p>Here are the shows with the most notes!</p>
+
+{% for show in shows %}
+
+<div id="show_{{ show.pk }}">
+  <h3>{{ show.artist.name }} playing at  {{ show.venue.name }} on {{ show.show_date }} </h3>
+  <a href="{% url 'lmn:notes_for_show' show_pk=show.pk %}">See all notes for this show!</a>
+  <hr>
+</div>
+
+{% empty %}
+
+<p>No shows.</p>
+
+{% endfor %}
+
+{% endblock %}

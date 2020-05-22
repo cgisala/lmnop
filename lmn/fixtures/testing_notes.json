@@ -24,6 +24,33 @@
         "text" : "woo hoo!",
         "posted_date" : "2017-02-14"
       }
+    },
+
+    {"model" : "lmn.note", "pk" : 3 , "fields" :
+      { "show" : "2",
+        "user" : "3",
+        "title" : "awful",
+        "text" : "never again",
+        "posted_date" : "2019-02-14"
+      }
+    },
+
+    {"model" : "lmn.note", "pk" : 3 , "fields" :
+      { "show" : "1",
+        "user" : "3",
+        "title" : "super",
+        "text" : "woo hoo!",
+        "posted_date" : "2017-02-14"
+      }
+    },
+
+    {"model" : "lmn.note", "pk" : 3 , "fields" :
+      { "show" : "4",
+        "user" : "2",
+        "title" : "super",
+        "text" : "woo hoo!",
+        "posted_date" : "2017-02-14"
+      }
     }
 
 ]

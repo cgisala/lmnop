@@ -7,7 +7,7 @@ from lmn.models import Venue, Artist, Note, Show
 from lmn import views_admin
 from django.contrib.auth.models import User
 
-from mock import patch
+from unittest.mock import patch
 
 import os
 import requests
@@ -569,6 +569,24 @@ class TestEditNotes(TestCase):
         self.assertNotContains(response, 'yay!')
         self.assertContains(response, 'notey')
 
+
+class TestPageWithMostNotes(TestCase):
+    fixtures = ['testing_users', 'testing_artists', 'testing_venues', 'testing_shows']
+
+    # Show 2 has 3 notes. Show 1 has 2 notes. Show 4 has 1 note. Show 3 has 0 notes. 
+    # Expect shows 2, 1, 4 to be on page. 
+
+    def test_shows_with_most_notes_page(self):
+        response = self.client.get(reverse('lmn:shows_most_notes'))
+        self.assertTemplateUsed(response, 'lmn/notes/shows_most_notes.html')
+        print(response.context)
+        shows = response.context['shows'] 
+        self.assertEqual(2, shows[0].pk)
+        self.assertEqual(1, shows[1].pk)
+        self.assertEqual(4, shows[2].pk)
+
+
+
 class TestUserAuthentication(TestCase):
 
     ''' Some aspects of registration (e.g. missing data, duplicate username) covered in test_forms '''
@@ -594,3 +612,5 @@ class TestUserAuthentication(TestCase):
 
         self.assertRedirects(response, reverse('lmn:homepage'))   # FIXME Fix code to redirect to last page user was on before registration.
         self.assertContains(response, 'sam12345')  # Homepage has user's name on it
+
+

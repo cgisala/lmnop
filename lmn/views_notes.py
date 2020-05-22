@@ -83,3 +83,9 @@ def note_detail(request, note_pk, *args, **kwargs):
         editable = True
 
     return render(request, 'lmn/notes/note_detail.html' , { 'note': note, 'editable': editable })
+
+
+def shows_most_notes(request):
+    # Shows with most notes = most popular show PK in the notes table 
+    shows = Show.objects.all() # todo write correct query for most popular shows
+    return render(request, 'lmn/notes/shows_most_notes.html', {'shows': shows })

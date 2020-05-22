@@ -9,7 +9,7 @@
     },
 
     {"model" : "lmn.note", "pk" : 2 , "fields" :
-      { "show" : "1",
+      { "show" : "2",
         "user" : "2",
         "title" : "awesome",
         "text" : "yay!",
@@ -23,6 +23,49 @@
         "title" : "super",
         "text" : "woo hoo!",
         "posted_date" : "2017-02-14"
+      }
+    },
+
+    {"model" : "lmn.note", "pk" : 4 , "fields" :
+      { "show" : "2",
+        "user" : "3",
+        "title" : "awful",
+        "text" : "never again",
+        "posted_date" : "2019-02-14"
+      }
+    },
+
+    {"model" : "lmn.note", "pk" : 5 , "fields" :
+      { "show" : "1",
+        "user" : "3",
+        "title" : "fabulous",
+        "text" : "best show ever",
+        "posted_date" : "2017-02-14"
+      }
+    },
+
+    {"model" : "lmn.note", "pk" : 6 , "fields" :
+      { "show" : "4",
+        "user" : "2",
+        "title" : "weird",
+        "text" : "couldn't understand anything",
+        "posted_date" : "2017-02-14"
+      }
+    },
+    {"model" : "lmn.note", "pk" : 7 , "fields" :
+      { "show" : "5",
+        "user" : "1",
+        "title" : "show 5 was great",
+        "text" : "yay",
+        "posted_date" : "2020-02-14"
+      }
+    },
+    {"model" : "lmn.note", "pk" : 8 , "fields" :
+      { "show" : "5",
+        "user" : "2",
+        "title" : "show 5 was terrible",
+        "text" : "ugh",
+        "posted_date" : "2020-02-14"
       }
     }
 

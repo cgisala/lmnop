@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+from django.db.models import Count
 
 
 @login_required
@@ -83,3 +84,23 @@ def note_detail(request, note_pk, *args, **kwargs):
         editable = True
 
     return render(request, 'lmn/notes/note_detail.html' , { 'note': note, 'editable': editable })
+
+
+def shows_most_notes(request):
+    # Shows with most notes = most popular show PK in the notes table 
+    # Get the IDs of the three most popular shows
+    show_id_and_counts = Note.objects    \
+        .values('show_id')          \
+        .annotate(Count('show'))    \
+        .order_by('-show__count')   \
+        [:3]      
+
+    # Fetch the associated Show objects 
+
+    def get_show_for_id(id_and_count):
+        show = Show.objects.get(pk=id_and_count['show_id'])
+        return (show, id_and_count)
+
+    popular_shows_and_counts = list(map(get_show_for_id, show_id_and_counts))
+    
+    return render(request, 'lmn/notes/shows_most_notes.html', {'popular_shows': popular_shows_and_counts })

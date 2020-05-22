@@ -139,7 +139,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Where to send user after successful login if no other page is provided.
 # Should provide the user object.
 LOGIN_REDIRECT_URL = 'lmn:my_user_profile'
-LOGOUT_REDIRECT_URL = 'lmn:homepage'
+
 
 if os.getenv('GAE_INSTANCE'):
     GS_STATIC_FILE_BUCKET = 'lmnop-275222.appspot.com'

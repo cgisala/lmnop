@@ -22,5 +22,11 @@
       "artist" : 2,
       "venue" : 1
     }
+  },
+  {"model" : "lmn.show", "pk" : 5 , "fields" :
+    { "show_date" : "2019-02-22",
+      "artist" : 2,
+      "venue" : 1
+    }
   }
 ]
